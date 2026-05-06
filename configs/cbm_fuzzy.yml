@@ -1,0 +1,50 @@
+SEED: 42
+EXP_NAME: cbm_fuzzy_cub
+
+MODEL:
+  NAME: cbm
+  X2Z: resnet34
+  BOOL_CONCEPTS: false
+
+DATASET:
+  NAME: cub
+  ROOT: ../../datasets
+  N_TASKS: 200
+  N_CONCEPTS: 112
+  IMG_SIZE: 299
+  PIXEL_MEAN:
+  - 0.485
+  - 0.456
+  - 0.406
+  PIXEL_STD:
+  - 0.229
+  - 0.224
+  - 0.225
+
+TRAIN:
+  EPOCHS: 300
+  BATCH_SIZE: 256
+  NUM_WORKERS: 4
+  C_LOSS_WEIGHT: 5.0
+  Y_LOSS_WEIGHT: 1.0
+  IMBALANCE: true
+  PATIENCE: 15
+
+  OPTIM: 
+    NAME: sgd
+    LR: 0.01
+    MOMENTUM: 0.9
+    WD: 4.0e-5
+    
+  SCHEDULER: 
+    NAME: lrp
+
+  
+VAL:
+  BATCH_SIZE: 128
+  NUM_WORKERS: 2
+  FREQUENCY: 5
+
+TEST:
+  BATCH_SIZE: 128
+  NUM_WORKERS: 2

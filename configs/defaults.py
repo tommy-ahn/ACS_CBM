@@ -1,0 +1,118 @@
+import os
+
+from yacs.config import CfgNode as CN
+
+_C = CN()
+_C.SEED = 42
+_C.LOG_DIR = "logs"
+_C.EXP_NAME = "default"
+
+
+# -------------
+# MODEL
+# -------------
+_C.MODEL = CN()
+_C.MODEL.NAME = "cbm"
+_C.MODEL.N_CONCEPTS = 112
+_C.MODEL.X2Z = "resnet34"
+_C.MODEL.BOOL_CONCEPTS = False
+_C.MODEL.DIM = -1
+_C.MODEL.Y_DIM = -1  # ProbCBM
+_C.MODEL.N_SAMPLES = -1  # ProbCBM
+
+
+# -------------
+# GRaCE / Actor-Critic
+# -------------
+_C.GRACE = CN()
+
+_C.GRACE.K = 64
+
+_C.GRACE.STAGE1_EPOCHS = 80
+_C.GRACE.STAGE2_EPOCHS = 40
+_C.GRACE.STAGE3_EPOCHS = 30
+
+_C.GRACE.FULL_Y_WEIGHT = 1.0
+_C.GRACE.SEL_Y_WEIGHT = 0.2
+
+_C.GRACE.ENTROPY_COEF = 5e-2
+_C.GRACE.ENTROPY_COEF_END = 5e-3
+_C.GRACE.ENTROPY_ANNEAL_EPOCHS = 50
+
+_C.GRACE.VALUE_COEF = 0.5
+_C.GRACE.ADV_EPS = 1e-6
+_C.GRACE.REWARD_EMA_MOMENTUM = 0.95
+
+_C.GRACE.ACTOR_LR = 3e-5
+_C.GRACE.CRITIC_LR = 1e-4
+
+_C.GRACE.ACTOR_HIDDEN_DIM = 512
+_C.GRACE.CRITIC_HIDDEN_DIM = 256
+_C.GRACE.ACTOR_DROPOUT = 0.0
+_C.GRACE.CRITIC_DROPOUT = 0.0
+
+_C.GRACE.CONCEPT_ACC_THRESHOLD = 0.5
+_C.GRACE.MAX_GRAD_NORM = 5.0
+
+# -------------
+# DATASET
+# -------------
+_C.DATASET = CN()
+_C.DATASET.NAME = "cub"
+_C.DATASET.ROOT = "/home/swkim/dataset"
+_C.DATASET.N_TASKS = 200
+_C.DATASET.N_CONCEPTS = 112
+_C.DATASET.IMG_SIZE = 299
+_C.DATASET.PIXEL_MEAN = [0.485, 0.456, 0.406]
+_C.DATASET.PIXEL_STD = [0.229, 0.224, 0.225]
+
+_C.DATASET.CONCEPT_SOURCE = "gt"      # "gt" or "pseudo"
+_C.DATASET.PSEUDO_DIR = ""            # e.g. "./pseudo_concept_gt"
+_C.DATASET.PSEUDO_TYPE = "soft"       # "soft" | "binary_threshold" | "binary_topk"
+_C.DATASET.PSEUDO_THRESHOLD = 0.28
+_C.DATASET.PSEUDO_TOPK = 20
+_C.DATASET.PSEUDO_NAME_PATH = ""      # optional override, usually empty
+
+
+# -------------
+# TRAIN
+# -------------
+_C.TRAIN = CN()
+_C.TRAIN.EPOCHS = 100
+_C.TRAIN.BATCH_SIZE = 256
+_C.TRAIN.NUM_WORKERS = 2
+_C.TRAIN.C_LOSS_WEIGHT = 5.0
+_C.TRAIN.Y_LOSS_WEIGHT = 1.0
+_C.TRAIN.X_LOSS_WEIGHT = 0.0
+_C.TRAIN.IMBALANCE = True
+
+_C.TRAIN.OPTIM = CN()
+_C.TRAIN.OPTIM.NAME = "sgd"
+_C.TRAIN.OPTIM.LR = 0.01
+_C.TRAIN.OPTIM.MOMENTUM = 0.9
+_C.TRAIN.OPTIM.WD = 4e-5
+
+_C.TRAIN.SCHEDULER = CN()
+_C.TRAIN.SCHEDULER.NAME = "lrp"
+
+_C.TRAIN.PATIENCE = 15
+
+
+# -------------
+# VAL
+# -------------
+_C.VAL = CN()
+_C.VAL.BATCH_SIZE = 32
+_C.VAL.NUM_WORKERS = 2
+_C.VAL.FREQUENCY = 5
+
+
+# -------------
+# TEST
+# -------------
+_C.TEST = CN()
+_C.TEST.BATCH_SIZE = 32
+_C.TEST.NUM_WORKERS = 2
+
+
+
