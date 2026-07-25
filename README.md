@@ -1,10 +1,10 @@
-# GRaCE-CBM: RL-based Adaptive Concept Selection for CBMs
-*(NeurIPS 2026 Submission — Authors Anonymous)*
+# Adaptive Concept Selection for Explainable Label-Free Concept Bottleneck Models via Group Relative Policy Optimization
+*(AAAI 2027 Submission — Authors Anonymous)*
 
-Official implementation of **GRaCE-CBM**, a reinforcement learning-based framework for adaptive concept subset selection in Concept Bottleneck Models (CBMs).
+Official implementation of **ACS-CBM**, a reinforcement learning-based framework for adaptive concept subset selection in Concept Bottleneck Models (CBMs).
 
 ## 🧩 Abstract
-Concept Bottleneck Models (CBMs) improve interpretability by constraining predictions to pass through human-understandable concepts. However, conventional CBMs require costly concept annotations and assume that predefined concept sets are well-aligned with downstream tasks. Recent label-free CBMs alleviate the annotation bottleneck by leveraging vision-language models to construct large-scale concept banks, but these automatically generated concepts are often noisy, redundant, and weakly task-aligned. In this work, we address the problem of selecting a compact and informative subset of concepts from large label-free concept banks. We formulate concept subset selection as a structured and combinatorial decision-making problem and propose GRaCE-CBM, a reinforcement learning-based framework that learns to select task-relevant concepts via Group Relative Policy Optimization (GRPO). Our method introduces a reward function that jointly considers task utility, concept quality, and redundancy reduction, along with entropy regularization for stable exploration in noisy concept spaces. Extensive experiments on CUB, AwA2, and CheXpert demonstrate that GRaCE-CBM consistently outperforms both full-concept baselines and heuristic selection methods while using significantly fewer concepts. Furthermore, our approach improves robustness under noisy concept conditions and reduces inference cost, resulting in more compact, interpretable, and efficient models.
+Concept Bottleneck Models (CBMs) provide interpretable predictions by explicitly reasoning through semantic concepts. Recent label-free CBMs leverage vision-language models to automatically construct concept banks, eliminating the need for expensive concept annotations. However, these concept banks often contain noisy, redundant, and task-irrelevant concepts, limiting both predictive performance and interpretability. We propose Adaptive Concept Selection (ACS-CBM), a reinforcement learning framework that automatically discovers compact and informative concept subsets for label-free CBMs. Specifically, we formulate concept selection as a structured combinatorial optimization problem and employ Group Relative Policy Optimization to efficiently learn task-aware concept selection policies. Our reward function jointly considers downstream task performance, concept quality, and redundancy reduction, while entropy regularization encourages effective exploration in large concept spaces. Experiments on CUB, AwA2, and CheXpert demonstrate that ACS-CBM consistently achieves higher predictive accuracy using significantly fewer concepts than existing label-free CBMs and representative concept selection methods. Furthermore, the proposed approach improves robustness under noisy concept settings and reduces inference complexity, resulting in compact, efficient, and highly interpretable concept bottleneck models. These results highlight adaptive concept selection as a practical direction for scalable explainable learning without concept annotations.
 
 ---
 
@@ -17,7 +17,7 @@ However, existing CBMs suffer from:
 - Poor subset selection (independent ranking)  
 - Limited controllability under intervention  
 
-👉 We propose **GRaCE-CBM**, which formulates concept selection as a **subset-level optimization problem** and solves it using reinforcement learning.
+👉 We propose **ACS-CBM**, which formulates concept selection as a **subset-level optimization problem** and solves it using reinforcement learning.
 ---
 
 ## 🔥 Key Contributions
@@ -36,5 +36,5 @@ However, existing CBMs suffer from:
 ---
 
 ## 📄 Notes
-- This repository is part of a **NeurIPS 2026 anonymized submission**.
+- This repository is part of a **AAAI 2027 anonymized submission**.
 - Author identities are removed for double-blind review.
